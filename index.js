@@ -90,6 +90,7 @@ export default {
       let response
       if (!data.Method || data.Method && data.Method === "GET") {
         response = await fetch(data.URL);
+        response = await response.text();
       }
         
       return new Response(response, {
