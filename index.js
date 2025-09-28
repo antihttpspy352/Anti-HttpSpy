@@ -68,7 +68,7 @@ export default {
       }
 
       // Detect if Key Method is invalid
-      if (key_method && key_method.toUpperCase() !== "GET" && key_method.toUpperCase() !== "POST" && key_method.toUpperCase() !== "DELETE" && key_method.toUpperCase() !== "PUT" && key_method.toUpperCase() !== "PATCH") {
+      if (key_method && key_method.toUpperCase() !== "GET" && key_method.toUpperCase() !== "POST" && key_method.toUpperCase() !== "DELETE" && key_method.toUpperCase() !== "PUT" && key_method.toUpperCase() !== "PATCH" && key_method.toUpperCase() !== "HEAD") {
         return new Response(`400: Invalid method parameter`, { status: 400 });
       }
       
@@ -95,7 +95,7 @@ export default {
 
       let response
       response = await fetch(data.URL, {
-        method: data.Method || request.method,
+        method: request.method,
         headers: request.headers,
         body: request.body
       });
