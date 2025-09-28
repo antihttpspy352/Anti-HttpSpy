@@ -84,7 +84,7 @@ export default {
 
       // Detect if Method isn't match
       if (("Method" in data) && data.Method !== method) {
-        return new Response(`405: Method not allowed`, { status: 405 });
+        return new Response(`405: Method Not Allowed`, { status: 405 });
       }
       
       return new Response(data.URL, {
