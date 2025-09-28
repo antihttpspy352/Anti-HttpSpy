@@ -59,18 +59,19 @@ export default {
     // Handle Hide URL Requests
     if (path[1] === "api" && path[2] === "hideUrl") {
       const key_url = url.searchParams.get("url"); // get key in '?url=Key'
-      const key_method = (url.searchParams.get("method") || request.method).toUpperCase(); // get key in '?method=POST' otherwise get request method
+      const key_method = url.searchParams.get("method"); // get key in '?method=POST'
       
       // Detect if Key Url is Missing
       if (!key_url) {
         return new Response(`400: Missing url parameter`, { status: 400 });
       }
 
-      const json = JSON.stringify({ 
-        URL: key_url,
-        Method: key_method
-      });
-        
+      const json = JSON.stringify({ URL: key_url });
+
+      if (key_method) {
+        json.Method = key_method.toUpperCase();
+      }
+      
       return new Response(`${domain}/domain/${EncodeText(JSON.stringify(json), ServiceKey)}`, {
         headers: { "Content-Type": "text/plain" }
       });
@@ -80,7 +81,7 @@ export default {
     if (path[1] === "domain") {
       const data = JSON.parse(JSON.parse(DecodeText(path[2], ServiceKey)));
       
-      return new Response(data.URL, {
+      return new Response(data.Method, {
         headers: { "Content-Type": "text/plain" }
       });
     }
