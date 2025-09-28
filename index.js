@@ -1,5 +1,5 @@
 const ScriptsLink = "https://ghost352.neocities.org/RobloxScripts/ScriptsTable/Links.json";
-const ServiceKey = "AdRa-hXtp-44pk-uopl-cVIp-QdG1-Dnh1-adO0-russ-1ov3";
+const ServiceKey = "alwj-29gs-QdG1-km3j-82ns-1wil-russ-1ov3";
 
 //-- Encode Decode Word Function
 const base32Alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
