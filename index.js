@@ -72,9 +72,10 @@ export default {
       if (key_method) {
         json.Method = key_method.toUpperCase();
       }
-      
-      return new Response(`${domain}/domain/${EncodeText(JSON.stringify(json), ServiceKey)}`, {
-        headers: { "Content-Type": "text/plain" }
+
+      json.Result = `${domain}/domain/${EncodeText(JSON.stringify(json), ServiceKey)}`;
+      return new Response(JSON.stringify(json), {
+        headers: { "Content-Type": "application/json" }
       });
     }
 
