@@ -66,7 +66,7 @@ export default {
         return new Response(`400: Missing url parameter`, { status: 400 });
       }
 
-      const json = JSON.stringify({ URL: key_url });
+      const json = { URL: key_url };
 
       if (key_method) {
         json.Method = key_method.toUpperCase();
