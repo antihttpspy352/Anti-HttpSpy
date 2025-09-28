@@ -1,0 +1,4 @@
+name = "roblox-script-security"
+main = "index.js"
+compatibility_date = "2025-07-05"
+workers_dev = true
