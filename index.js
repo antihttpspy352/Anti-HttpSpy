@@ -95,7 +95,7 @@ export default {
 
       let response
       response = await fetch(data.URL, {
-        method: request.method,
+        method: data.Method || request.method,
         headers: request.headers,
         body: request.body
       });
