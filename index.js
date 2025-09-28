@@ -76,6 +76,14 @@ export default {
       });
     }
 
+    // Handle Access Encoded Domains
+    if (path[1] === "domain") {
+      const data = DecodeText(path[2], ServiceKey);
+      return new Response(data, {
+        headers: { "Content-Type": "text/plain" }
+      });
+    }
+    
     return new Response("404: Not Found", { status: 404 });
   }
 }
