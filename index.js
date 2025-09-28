@@ -65,7 +65,7 @@ export default {
         return new Response(`400: Missing url parameter`, { status: 400 });
       }
 
-      return new Response(domain, {
+      return new Response(`${domain}/api/domain/${EncodeText(key_url, ServiceKey)}`, {
         headers: { "Content-Type": "text/plain" }
       });
     }
