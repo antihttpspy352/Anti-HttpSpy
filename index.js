@@ -64,6 +64,10 @@ export default {
       if (!key_url) {
         return new Response(`400: Missing Url parameter`, { status: 400 });
       }
+
+      return new Response(domain, {
+        headers: { "Content-Type": "text/plain" }
+      });
     }
 
     return new Response("404: Not Found", { status: 404 });
