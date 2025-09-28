@@ -86,8 +86,13 @@ export default {
       if (("Method" in data) && data.Method !== method) {
         return new Response(`405: Method Not Allowed`, { status: 405 });
       }
-      
-      return new Response(data.URL, {
+
+      let response
+      if (!data.Method || data.Method && data.Method === "GET") {
+        response = await fetch(data.URL);
+      }
+        
+      return new Response(response, {
         headers: { "Content-Type": "text/plain" }
       });
     }
