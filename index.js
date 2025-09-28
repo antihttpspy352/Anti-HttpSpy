@@ -62,7 +62,7 @@ export default {
 
       // Detect if Key Url is Missing
       if (!key_url) {
-        return new Response(`400: Missing Url parameter`, { status: 400 });
+        return new Response(`400: Missing url parameter`, { status: 400 });
       }
 
       return new Response(domain, {
