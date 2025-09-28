@@ -81,7 +81,7 @@ export default {
     if (path[1] === "domain") {
       const data = JSON.parse(DecodeText(path[2], ServiceKey));
       
-      return new Response(data.URL, {
+      return new Response(data.Method, {
         headers: { "Content-Type": "text/plain" }
       });
     }
