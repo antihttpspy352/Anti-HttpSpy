@@ -78,7 +78,9 @@ export default {
 
     // Handle Access Encoded Domains
     if (path[1] === "domain") {
-      const data = JSON.parse(DecodeText(path[2], ServiceKey));
+      const encoded = JSON.parse(DecodeText(path[2], ServiceKey));
+      const data = JSON.parse(encoded);
+      
       return new Response(data.URL, {
         headers: { "Content-Type": "text/plain" }
       });
