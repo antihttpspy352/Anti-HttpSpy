@@ -1,7 +1,6 @@
-const ScriptsLink = "https://ghost352.neocities.org/RobloxScripts/ScriptsTable/Links.json";
 const ServiceKey = "alwj-29gs-QdG1-km3j-82ns-1wil-russ-1ov3";
 
-//-- Encode Decode Word Function
+//-- Encode/Decode Message with Key Function
 const base32Alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 function toBase32(bytes) {
   let bits = 0, value = 0, output = '';
@@ -48,103 +47,6 @@ function DecodeText(encoded, key) {
   return new TextDecoder().decode(new Uint8Array(decrypted));
 }
 //--
-
-
-// Get Random String With Length
-function GetRandomString(length) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
-
-// Get Random Name Function
-function GetRandomName() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const length = Math.floor(Math.random() * (32 - 16 + 1)) + 16; // random length between 16 and 32
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-}
-
-// Generate Secured Key Function
-function generateSecureKey(length = 32, segmentLength = 4) {
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const array = new Uint8Array(length);
-  crypto.getRandomValues(array);
-
-  let key = '';
-  for (let i = 0; i < array.length; i++) {
-    key += chars[array[i] % chars.length];
-    if ((i + 1) % segmentLength === 0 && i + 1 !== array.length) {
-      key += '-';
-    }
-  }
-  return key;
-}
-
-// Encode Ascii Function
-function encodeAscii(str) {
-  return str
-    .split('')
-    .map(char => char.charCodeAt(0))
-    .join('\\');
-}
-
-// Encode Script Function
-function EncodeScript(str, key) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(str); // UTF-8 bytes
-  const result = [];
-  for (let i = 0; i < data.length; i++) {
-    const k = key.charCodeAt(i % key.length);
-    result.push((data[i] + k) % 256); // still using key shift
-  }
-  return result.join('/');
-}
-
-// Get Number With Math Function
-function GetNumberWithMath(num) {
-  if (typeof num !== 'number' || !Number.isFinite(num)) return null;
-  const operators = ['+', '-', '*', '/'];
-  const op = operators[Math.floor(Math.random() * operators.length)];
-  let expr;
-  switch (op) {
-    case '+': {
-      const a = Math.floor(Math.random() * num);
-      const b = num - a;
-      expr = `${a} + ${b}`;
-      break;
-    }
-    case '-': {
-      const a = Math.floor(Math.random() * 50) + num;
-      const b = a - num;
-      expr = `${a} - ${b}`;
-      break;
-    }
-    case '*': {
-      const factors = [];
-      for (let i = 1; i <= Math.abs(num); i++) {
-        if (num % i === 0) factors.push(i);
-      }
-      const a = factors[Math.floor(Math.random() * factors.length)];
-      const b = num / a;
-      expr = `${a} * ${b}`;
-      break;
-    }
-    case '/': {
-      const b = Math.floor(Math.random() * 10) + 1;
-      const a = num * b;
-      expr = `${a} / ${b}`;
-      break;
-    }
-  }
-  return expr;
-}
 
 
 export default {
