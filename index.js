@@ -67,6 +67,11 @@ export default {
         return new Response(`400: Missing url parameter`, { status: 400 });
       }
 
+      // Detect if Key Method is invalid
+      if (key_method && key_method.toUpperCase() !== "GET" && key_method.toUpperCase() !== "POST" && key_method.toUpperCase() !== "DELETE" && key_method.toUpperCase() !== "PUT" && key_method.toUpperCase() !== "PATCH") {
+        return new Response(`400: Invalid method parameter`, { status: 400 });
+      }
+      
       const json = { URL: key_url };
 
       if (key_method) {
