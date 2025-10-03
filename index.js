@@ -61,6 +61,7 @@ export default {
     if (path[1] === "api" && path[2] === "hideUrl") {
       const key_url = url.searchParams.get("url"); // get key in '?url=Key'
       const key_method = url.searchParams.get("method"); // get key in '?method=POST'
+      const key_key = url.searchParams.get("key");
       
       // Detect if Key Url is Missing
       if (!key_url) {
@@ -78,6 +79,10 @@ export default {
         json.Method = key_method.toUpperCase();
       }
 
+      if (key_key) {
+        json.Key = key_key;
+      }
+
       json.Result = `${domain}/domain/${EncodeText(JSON.stringify(json), ServiceKey)}`;
       return new Response(JSON.stringify(json), {
         headers: { "Content-Type": "application/json" }
@@ -86,11 +91,17 @@ export default {
 
     // Handle Access Encoded Domains
     if (path[1] === "domain") {
+      const key_key = url.searchParams.get("key");
       const data = JSON.parse(DecodeText(path[2], ServiceKey));
 
       // Detect if Method isn't match
       if (("Method" in data) && data.Method !== method) {
-        return new Response(`405: Method Not Allowed`, { status: 405 });
+        return new Response('405: Method Not Allowed', { status: 405 });
+      }
+
+      // Detect if Key isn't match
+      if (("Key" in data) && data.Key !== key_key) {
+        return new Response('403: Key Invalid', { status: 403 });
       }
 
       let response
