@@ -61,7 +61,8 @@ export default {
     if (path[1] === "api" && path[2] === "hideUrl") {
       const key_url = url.searchParams.get("url"); // get key in '?url=Key'
       const key_method = url.searchParams.get("method"); // get key in '?method=POST'
-      const key_key = url.searchParams.get("key");
+      const key_key = url.searchParams.get("key"); // get key in '?key=123'
+      const key_expiration = url.searchParams.get("expiration"); // get key in '?expiration=1000'
       
       // Detect if Key Url is Missing
       if (!key_url) {
@@ -75,14 +76,21 @@ export default {
       
       const json = { URL: key_url };
 
+      // Detect if has key "Method"
       if (key_method) {
         json.Method = key_method.toUpperCase();
       }
 
+      // Detect if has key "Key"
       if (key_key) {
         json.Key = key_key;
       }
 
+      // Detect if has key "Expiration"
+      if (key_expiration) {
+        json.Expiration = Date.now() + key_expiration;
+      }
+      
       json.Result = `${domain}/domain/${EncodeText(JSON.stringify(json), ServiceKey)}`;
       return new Response(JSON.stringify(json), {
         headers: { "Content-Type": "application/json" }
@@ -104,6 +112,11 @@ export default {
         return new Response('403: Key Invalid', { status: 403 });
       }
 
+      // Detect if Key Expiration is Expired
+      if (("Expiration" in data) && Date.now() >== data.Expiration) {
+        return new Response('419: Link Expired', { status: 419 });
+      }
+      
       let response
       response = await fetch(data.URL, {
         method: request.method,
