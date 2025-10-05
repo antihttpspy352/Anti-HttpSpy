@@ -88,7 +88,7 @@ export default {
 
       // Detect if has key "Expiration"
       if (key_expiration) {
-        json.Expiration = Date.now() + key_expiration;
+        json.Expiration = Date.now() + Number(key_expiration);
       }
       
       json.Result = `${domain}/domain/${EncodeText(JSON.stringify(json), ServiceKey)}`;
@@ -113,7 +113,7 @@ export default {
       }
 
       // Detect if Key Expiration is Expired
-      if (("Expiration" in data) && Date.now() >== data.Expiration) {
+      if (("Expiration" in data) && Date.now() >== Number(data.Expiration)) {
         return new Response('419: Link Expired', { status: 419 });
       }
       
